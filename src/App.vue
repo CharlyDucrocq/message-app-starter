@@ -1,30 +1,28 @@
 <template>
   <div class="app">
-    <Messages v-on:unreadcount="updateUnread($event)"/>
-    <Menu :unreadMessages="this.unread"/>
+    <Errors id="errors-list"/>
+    <router-view/>
+    <Menu/>
   </div>
 </template>
 
 <script>
   import Menu from "./components/Menu.vue";
-  import Messages from "./components/Messages.vue";
+  import Errors from "./components/Errors";
 
 export default {
   name: "App",
   data(){
     return {
-      unread: Number
+
     };
   },
   components: {
+    Errors,
     Menu,
-    Messages,
   },
   methods:{
-    updateUnread(val){
-      if(val === 0) val = null;
-      this.unread = val;
-    }
+
   }
 };
 </script>
@@ -41,4 +39,11 @@ html, body {
   text-align: center;
   color: #2c3e50;
 }
+  #errors-list {
+    position: fixed;
+    z-index: 10;
+    left: 0;
+    right: 0;
+    top : 0;
+  }
 </style>

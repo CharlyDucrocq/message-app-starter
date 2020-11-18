@@ -1,10 +1,10 @@
 <template>
     <div class="menu absolute">
-        <div class="group-button menu-button"><i class="fas fa-user-friends"></i></div>
-        <div class="phone-button menu-button"><i class="fas fa-phone"></i></div>
-        <div class="msg-button menu-button button-selected"><i class="fas fa-comment-dots"><div id="unread-msg-icon">{{unreadMessages}}</div></i></div>
-        <div class="card-button menu-button"><i class="fas fa-id-card"></i></div>
-        <div class="more-button menu-button"><i class="fas fa-ellipsis-h"></i></div>
+        <div class="group-button menu-button" v-bind:class="{selected : isSelected('group')}"><i class="fas fa-user-friends"></i></div>
+        <div class="phone-button menu-button" v-bind:class="{selected : isSelected('phone')}"><i class="fas fa-phone"></i></div>
+        <router-link to="/messages" class="msg-button menu-button" v-bind:class="{selected : isSelected('messages')}"><i class="fas fa-comment-dots"><div id="unread-msg-icon">{{unreadMessages}}</div></i></router-link>
+        <router-link to="/contacts" class="card-button menu-button" v-bind:class="{selected : isSelected('contacts')}"><i class="fas fa-id-card"></i></router-link>
+        <div class="more-button menu-button" v-bind:class="{selected : isSelected('other')}"><i class="fas fa-ellipsis-h"></i></div>
     </div>
     <div class="menu hidden">
         <div id="group-button" class="menu-button"><i class="fas fa-user-friends"></i></div>
@@ -18,8 +18,20 @@
 <script>
     export default {
         name: "Menu",
-        props: {
-            unreadMessages: Number,
+        data(){
+          return {
+
+          }
+        },
+        computed : {
+            unreadMessages(){
+                return this.$store.getters.numberOfUnreadMessages;
+            }
+        },
+        methods: {
+            isSelected(keyWord){
+                return this.$route.path.includes(String(keyWord));
+            }
         }
     }
 </script>
@@ -47,7 +59,7 @@
         background-color: white;
     }
     .menu-button i {
-        font-size: 4em;
+        font-size: 3.2em;
         position: relative;
     }
     #unread-msg-icon{
@@ -64,8 +76,14 @@
     #unread-msg-icon:empty{
         display: none;
     }
-    .button-selected{
+    .selected i{
         border-bottom: solid 6px dodgerblue;
         color: dodgerblue;
+    }
+    i:active{
+        color: initial;
+    }
+    a:-webkit-any-link {
+        color: inherit;
     }
 </style>

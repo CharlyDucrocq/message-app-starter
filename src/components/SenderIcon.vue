@@ -19,7 +19,10 @@
         justify-content: center;
         border-radius: 100%;
         overflow: hidden;
-        height: 12vw;
-        width: 24vw;
+        height: 12vh;
+        width: 12vh;
+    }
+    img{
+        min-height: 100%;
     }
 </style>

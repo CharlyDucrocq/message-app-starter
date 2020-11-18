@@ -1,41 +1,33 @@
 <template>
-    <div class="messages">
+    <div id="contacts-list">
         <div class="list-header absolute">
-            <div class="header1"><div>Chat</div><div><i class="fas fa-search"></i><i class="fas fa-plus"></i></div></div>
-            <div class="header2"><div class="sort_button sort-selected">All</div><div class="sort_button">Favorites</div><div class="sort_button">Channels</div></div>
+            <div class="header1"><div>Contacts</div><div><i class="fas fa-search"></i><i class="fas fa-plus"></i></div></div>
+            <div class="header2"><div class="sort_button sort-selected">All</div><div class="sort_button">Favorites</div></div>
         </div>
         <div class="list-header hidden">
             <div class="header1"><div>Chat</div><div><i class="fas fa-search"></i><i class="fas fa-plus"></i></div></div>
             <div class="header2"><div class="sort_button sort-selected">All</div><div class="sort_button">Favorites</div><div class="sort_button">Channels</div></div>
         </div>
-        <Message v-on:read="updateMsgRead(currentMessage.id, $event)" v-for="currentMessage in msgList" :key="currentMessage.id" :message="currentMessage"/>
+        <div class="list">
+            <Contact v-for="contact in contacts" :key="contact.id" :contact="contact"/>
+        </div>
     </div>
 </template>
 
 <script>
-    import Message from "./Message";
+    import Contact from "./Contact";
 
     export default {
-        name: "Messages",
-        data() {
-            return {
-
-            }
-        },
-        computed : {
-          msgList() {
-              return this.$store.getters.sortMessagesByDate;
-          }
+        name: "Contacts.vue",
+        components:{
+            Contact
         },
         created() {
-            this.$store.dispatch('setMessages');
+            this.$store.dispatch('setContacts')
         },
-        components : {
-            Message
-        },
-        methods : {
-            updateMsgRead(id, read){
-                this.msgList.find((m) => m.id === id).read = read;
+        computed:{
+            contacts(){
+                return this.$store.getters.contactsSortedByName;
             }
         }
     }

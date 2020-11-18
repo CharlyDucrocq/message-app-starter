@@ -1,7 +1,7 @@
 <template>
-    <div id="msg-shadow-box">
-    <div class="message" v-on:click="markAsRead(message.id)">
-        <SenderIcon :sender="message.sender"/>
+    <div id="item-list-shadow-box">
+    <div class="item-list" v-on:click="markAsRead(message.id)">
+        <div><SenderIcon :sender="message.sender"/></div>
         <div class="recap">
             <p id="senderName">{{message.sender.name}}</p>
             <p>{{message.content}}</p>
@@ -49,7 +49,7 @@
     #senderName {
         font-weight: bold;
     }
-    .message {
+    .item-list {
         margin-right: 1em;
         margin-left: 1em;
         padding-top: 0.5em;
@@ -59,15 +59,9 @@
         display: flex;
         align-content: center;
         align-items: center;
+        justify-content: space-around;
     }
-    .state {
-        display: flex;
-    }
-    .recap{
-        margin-left: 20px;
-        margin-right: 20px;
-    }
-    #msg-shadow-box {
+    #item-list-shadow-box {
         margin-left: -100px;
         margin-right: -100px;
 
@@ -76,5 +70,12 @@
 
 
         box-shadow: inset rgba(0,0,0,0.10) 0 0 67px;
+    }
+    .state {
+        display: flex;
+    }
+    .recap{
+        margin-left: 20px;
+        margin-right: 20px;
     }
 </style>
